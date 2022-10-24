@@ -112,9 +112,9 @@ article p{
     line-height: 1.5;
 }
  
-@media only screen and (min-width: 1280px){
+@media only screen and (min-width: 1160px){
     main{
-      max-width: 1280px;
+      max-width: 1132px;
       margin-left: auto;
       margin-right: auto; 
       padding: 24px;
