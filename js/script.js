@@ -13,40 +13,60 @@ var ShoppingCart = (function($) {
   var products = [
     {
       id: 0,
-      name: "iPhone 13",
-      description: "iPhone 13 features a cinema standard wide color gamut, displaying colors just as filmmakers intended.",
-      imageUrl: "./img/Cucumber.webp",
+
+      imageUrl: "./img/5.png",
       price: 1199
     },
     {
       id: 1,
-      name: "iPhone 13 Pro Max",
-      description: "Apple iPhone 13 Pro Max ; CPU, Hexa-core (2x3.22 GHz Avalanche + 4xX.X GHz Blizzard) ; GPU, Apple GPU (5-core graphics) ; Memory, Card slot ; Internal, 128GB 6GB",
-      imageUrl: "./img/1.png",
+
+      imageUrl: "./img/6.png",
       price: 1999,
     },
     {
       id: 2,
-      name: "Macbook Air",
-      description: "The M1 chip and macOS Monterey work together to make the entire system snappier. MacBook Air wakes instantly from sleep",
-      imageUrl: "./img/2.png",
+
+      imageUrl: "./img/7.png",
       price: 1499
     },
     {
       id: 3,
-      name: "Macbook",
-      description: "The MacBook Air was among the first of Apple's Macs to make the transition to Apple silicon.",
-      imageUrl: "./img/3.png",
+
+      imageUrl: "./img/8.png",
       price: 999
     },
     {
       id: 4,
-      name: "iPad 11inch",
-      description: "The iPad is Apple's most affordable and most popular tablet, and the ninth-generation model features the A13 Bionic chip.",
+
+      imageUrl: "./img/9.png",
+      price: 599
+    },
+    {
+      id: 5,
+
+
+      imageUrl: "./img/1.png",
+      price: 599
+    },
+    {
+      id: 6,
+
+      imageUrl: "./img/2.png",
+      price: 599
+    },
+    {
+      id: 7,
+
+      imageUrl: "./img/3.png",
+      price: 599
+    },
+    {
+      id: 8,
+
       imageUrl: "./img/4.png",
       price: 599
     },
-    
+
   ],
       productsInCart = [];
 
@@ -58,11 +78,11 @@ var ShoppingCart = (function($) {
       productEl.innerHTML = `<div class="product-image">
                                 <img src="${item.imageUrl}" alt="${item.name}">
                              </div>
-                             <div class="product-name"><span>Product:</span> ${item.name}</div>
-                             <div class="product-description"><span>Description:</span> ${item.description}</div>
+
+
                              <div class="product-price"><span>Price:</span> ${item.price} $</div>
                              <div class="product-add-to-cart">
-                               <a href="#0" class="button see-more">More Details</a>
+
                                <a href="#0" class="button add-to-cart" data-id=${item.id}>Add to Cart</a>
                              </div>
                           </div>
@@ -79,7 +99,7 @@ productsEl.appendChild(productEl);
 
     productsInCart.forEach(function(item) {
       var li = document.createElement("li");
-      li.innerHTML = `${item.quantity} ${item.product.name} - $${item.product.price * item.quantity}`;
+      li.innerHTML = `${item.quantity} - $${item.product.price * item.quantity}`;
       cartEl.appendChild(li);
     });
 
@@ -92,7 +112,7 @@ productsEl.appendChild(productEl);
   // Function that generates Empty Cart and Checkout buttons based on condition that checks if productsInCart array is empty
   var generateCartButtons = function() {
     if(productsInCart.length > 0) {
-      emptyCartEl.style.display = "block";
+      emptyCartEl.style.display = "none";
       cartCheckoutEl.style.display = "block"
       totalPriceEl.innerHTML = "$ " + calculateTotalPrice();
     } else {

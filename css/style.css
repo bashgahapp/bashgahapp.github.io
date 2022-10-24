@@ -56,7 +56,10 @@ a {
   display: inline-block;
   margin: 0 20px;
 }
+.product-price {
+    text-align: center;
 
+  }
 .products {
   display: flex;
   flex-wrap: wrap;
@@ -72,7 +75,7 @@ a {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  background: azure;
+  background: #fff;
 }
 
 
@@ -95,7 +98,9 @@ a {
 .product-add-to-cart {
   overflow: hidden;
   clear: both;
-  margin-top: 10px;
+  margin-top: 28px;
+  margin: 0 auto;
+
 }
 
 .see-more {
@@ -108,15 +113,17 @@ a {
 }
 
 .shopping-cart {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 300px;
-  min-heigh: 300px;
-  margin-right: 20px;
-  margin-top: 10px;
-  padding: 20px;
-  background: wheat;
+  position: sticky;
+  /* top: 0; */
+  /* right: 0; */
+
+  background: #a29bfe;
+      color: #fff;
+  /* margin-right: 20px; */
+  /* margin-top: 10px; */
+  /* padding: 20px; */
+
+}
 }
 
 .shopping-cart-head {
