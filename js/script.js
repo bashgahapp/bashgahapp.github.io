@@ -1,6 +1,6 @@
 var ShoppingCart = (function($) {
   "use strict";
-  
+
   // Cahce necesarry DOM Elements
   var productsEl = document.querySelector(".products"),
       cartEl =     document.querySelector(".shopping-cart-list"),
@@ -8,54 +8,48 @@ var ShoppingCart = (function($) {
       emptyCartEl = document.querySelector(".empty-cart-btn"),
       cartCheckoutEl = document.querySelector(".cart-checkout"),
       totalPriceEl = document.querySelector(".total-price");
-  
+
   // Fake JSON data array here should be API call
   var products = [
     {
       id: 0,
       name: "iPhone 13",
       description: "iPhone 13 features a cinema standard wide color gamut, displaying colors just as filmmakers intended.",
-      imageUrl: "./img/iphone-13.jpg",
+      imageUrl: "./img/Cucumber.webp",
       price: 1199
     },
     {
       id: 1,
       name: "iPhone 13 Pro Max",
       description: "Apple iPhone 13 Pro Max ; CPU, Hexa-core (2x3.22 GHz Avalanche + 4xX.X GHz Blizzard) ; GPU, Apple GPU (5-core graphics) ; Memory, Card slot ; Internal, 128GB 6GB",
-      imageUrl: "./img/iphone-pro-max.jpg",
+      imageUrl: "./img/1.png",
       price: 1999,
     },
     {
       id: 2,
       name: "Macbook Air",
       description: "The M1 chip and macOS Monterey work together to make the entire system snappier. MacBook Air wakes instantly from sleep",
-      imageUrl: "./img/macbook-air.jpg",
+      imageUrl: "./img/2.png",
       price: 1499
     },
     {
       id: 3,
       name: "Macbook",
       description: "The MacBook Air was among the first of Apple's Macs to make the transition to Apple silicon.",
-      imageUrl: "./img/macbook.jpg",
+      imageUrl: "./img/3.png",
       price: 999
     },
     {
       id: 4,
       name: "iPad 11inch",
       description: "The iPad is Apple's most affordable and most popular tablet, and the ninth-generation model features the A13 Bionic chip.",
-      imageUrl: "./img/ipad.jpg",
+      imageUrl: "./img/4.png",
       price: 599
     },
-    {
-      id: 5,
-      name: "iPad Mini",
-      description: "iPad is Apple's most affordable and most popular tablet, and the ninth-generation model features the A13 Bionic chip.",
-      imageUrl: "./img/ipad-mini.jpg",
-      price: 499
-    }
+    
   ],
       productsInCart = [];
-  
+
   // Pretty much self explanatory function. NOTE: Here I have used template strings (ES6 Feature)
   var generateProductList = function() {
     products.forEach(function(item) {
@@ -73,28 +67,28 @@ var ShoppingCart = (function($) {
                              </div>
                           </div>
 `;
-                             
+
 productsEl.appendChild(productEl);
     });
   }
-  
+
   // Like one before and I have also used ES6 template strings
   var generateCartList = function() {
-    
+
     cartEl.innerHTML = "";
-    
+
     productsInCart.forEach(function(item) {
       var li = document.createElement("li");
       li.innerHTML = `${item.quantity} ${item.product.name} - $${item.product.price * item.quantity}`;
       cartEl.appendChild(li);
     });
-    
+
     productQuantityEl.innerHTML = productsInCart.length;
-    
+
     generateCartButtons()
   }
-  
-  
+
+
   // Function that generates Empty Cart and Checkout buttons based on condition that checks if productsInCart array is empty
   var generateCartButtons = function() {
     if(productsInCart.length > 0) {
@@ -106,7 +100,7 @@ productsEl.appendChild(productEl);
       cartCheckoutEl.style.display = "none";
     }
   }
-  
+
   // Setting up listeners for click event on all products and Empty Cart button as well
   var setupListeners = function() {
     productsEl.addEventListener("click", function(event) {
@@ -116,7 +110,7 @@ productsEl.appendChild(productEl);
        addToCart(elId);
       }
     });
-    
+
     emptyCartEl.addEventListener("click", function(event) {
       if(confirm("Are you sure?")) {
         productsInCart = [];
@@ -124,7 +118,7 @@ productsEl.appendChild(productEl);
       generateCartList();
     });
   }
-  
+
   // Adds new items or updates existing one in productsInCart array
   var addToCart = function(id) {
     var obj = products[id];
@@ -139,8 +133,8 @@ productsEl.appendChild(productEl);
     }
     generateCartList();
   }
-  
-  
+
+
   // This function checks if project is already in productsInCart array
   var productFound = function(productId) {
     return productsInCart.find(function(item) {
@@ -153,18 +147,18 @@ productsEl.appendChild(productEl);
       return total + (item.product.price *  item.quantity);
     }, 0);
   }
-  
+
   // This functon starts the whole application
   var init = function() {
     generateProductList();
     setupListeners();
   }
-  
+
   // Exposes just init function to public, everything else is private
   return {
     init: init
   };
-  
+
   // I have included jQuery although I haven't used it
 })(jQuery);
 
