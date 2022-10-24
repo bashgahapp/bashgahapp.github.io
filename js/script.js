@@ -1,76 +1,174 @@
-let subtotal = 0;
+//first: 
+var slideIndex = 1;         
+showDivs(slideIndex);
 
-const calculateTax = subtotal => {
-  const tax = subtotal * 0.13;
-  const formattedTax = tax.toFixed(2);
-  return formattedTax;
-};
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
 
-const calculateTotal = subtotal => {
-  const tax = calculateTax(subtotal);
-  const total = parseFloat(subtotal) + parseFloat(tax);
-  const formattedTotal = total.toFixed(2);
-  return formattedTotal;
-};
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("slide1");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
 
-const getImgLink = title => {
-  let imgLink;
-  switch (title) {
-    case 'French Fies with Ketchup':
-      imgLink = 'https://assets.codepen.io/687837/plate__french-fries.png';
-      break;
-    case 'Salmon and Vegetables':
-      imgLink = 'https://assets.codepen.io/687837/plate__salmon-vegetables.png';
-      break;
-    case 'Spaghetti with Sauce':
-      imgLink = 'https://assets.codepen.io/687837/plate__spaghetti-meat-sauce.png';
-      break;
-    case 'Tortellini':
-      imgLink = 'https://assets.codepen.io/687837/plate__tortellini.png';
-      break;
-    case 'Chicken Salad':
-      imgLink = 'https://assets.codepen.io/687837/plate__chicken-salad.png';
-      break;
-    default:
-      imgLink = 'https://assets.codepen.io/687837/plate__chicken-salad.png';}
+//--------------------------------------------------------------------
+                                      //second: 
+var slideIndex2 = 1;         
+showDivs2(slideIndex2);
 
-  return imgLink;
-};
+function plusDivs2(n) {
+  showDivs2(slideIndex2 += n);
+}
 
-$('.add-button').on('click', function () {
-  const title = $(this).data('title');
-  const price = $(this).data('price');
-  const imgLink = getImgLink(title);
+function showDivs2(n) {
+  var i;
+  var x = document.getElementsByClassName("slide2");
+  if (n > x.length) {slideIndex2 = 1}    
+  if (n < 1) {slideIndex2 = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex2-1].style.display = "block";  
+}
+//--------------------------------------------------------------------
+                                     //third: using w3.js library
+myslide = w3.slideshow(".slide3",0)
+//--------------------------------------------------------------------
 
-  const element = `
-    <li class="cart-item">
-      <img src="${imgLink}" alt="${title}">
-      <div class="cart-item-dets">
-        <p class="cart-item-heading">${title}</p>
-        <p class="g-price">$${price}</p>
-      </div>
-    </li>
-  `;
-  $('.cart-items').append(element);
+var slideIndex3 = 1;              //fourth
+showDivs3(slideIndex3);
 
-  subtotal = subtotal + price;
+function plusDivs3(n) {
+  showDivs3(slideIndex3 += n);
+}
 
-  const formattedSubtotal = subtotal.toFixed(2);
-  const tax = calculateTax(subtotal);
-  const total = calculateTotal(subtotal);
+function showDivs3(n) {
+  var i;
+  var x = document.getElementsByClassName("slide4");
+  if (n > x.length) {slideIndex3 = 1}    
+  if (n < 1) {slideIndex3 = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex3-1].style.display = "block";  
+}
 
-  $('.cart-math').html(`
-    <p class="cart-math-item">
-      <span class="cart-math-header">Subtotal:</span>
-      <span class="g-price subtotal">$${formattedSubtotal}</span>
-    </p>
-    <p class="cart-math-item">
-      <span class="cart-math-header">Tax:</span>
-      <span class="g-price tax">$${tax}</span>
-    </p>
-    <p class="cart-math-item">
-      <span class="cart-math-header">Total:</span>
-      <span class="g-price total">$${total}</span>
-    </p>
-  `);
+
+//====================================================================
+var bag =[];                    // initialize price array   
+                  // Animation:
+$(document).ready(function(){
+  $('.cart').click(function(){
+    $('.checkout-container').fadeToggle();
+  });
+  
+  $('.checkout').addClass('disabled');
+  $('#bin').addClass('disabled');
 });
+
+$(document).on('click','.add-to-cart',function(e){
+  e.preventDefault();
+  $('.empty').hide();
+  
+  //---------------------------------------------------------
+  if($(this).hasClass('disable')){    //disable mutiple clicks
+    return false;
+  }
+  $(document).find('.add-to-cart').addClass('disable');
+  //---------------------------------------------------------
+  
+  
+  
+  var parent = $(this).parents('.snip');
+  var src = parent.find('img').attr('src');
+  var cart = $(document).find('.cart');
+  
+  var posTop = parent.offset().top;    //return the coordinates of a element
+  var posLeft = parent.offset().left;
+ 
+  $('<img />', { 
+   class: 'animation-fly',
+   src: src
+}).appendTo('body').css({
+    'top': posTop,      
+    'left': parseInt(posLeft)
+  }); 
+  
+  setTimeout(function(){
+    $(document).find('.animation-fly').css({
+      'top': cart.offset().top,
+      'left': cart.offset().left
+    });
+    setTimeout(function(){
+      $(document).find('.animation-fly').remove(); //after fly
+      var quantity = parseInt(cart.find('#count-item').data('count'))+1;
+//       if(quantity<2){
+//         cart.find('#count-item').text(quantity + ' item').data('count', quantity);
+//       }else{
+//         cart.find('#count-item').text(quantity + ' items').data('count', quantity);
+//       }
+      cart.find('#count-item').text(quantity + (quantity<2 ?' item':' items')).data('count', quantity);
+      
+                             //add item to cart
+    var name = parent.find('h4').text();
+    var price = parent.find('.real').text();
+    var txt3 = document.createElement("hr");
+    var txt4 = document.createElement("hr");
+       
+    $('.col1-name').append(name,txt3);
+    $('.col2-price').append(price,txt4);
+    $('.checkout').addClass('add-animation');
+    $('.checkout').removeClass('disabled');
+    
+    $('#bin').addClass('add-animation2');
+    $('#bin').removeClass('disabled');
+    
+                            //find total amount
+    var price2 = parseFloat(parent.find('.real').data('price')); //get "data-price" from <div class="real">
+    bag.push(price2);                                            
+    var total = 0;
+    $(".total-amount").text(function(){
+     for(var i in bag){
+      total += bag[i];    //calculate sum of all numbers in the array 
+     }
+     var last = "$ " + total.toFixed(2);
+     $('.pay-last').text(last);
+     return last;   // return total only -> bug.
+     
+    });
+      
+      $(document).find('.add-to-cart').removeClass('disable');
+    },1000);
+  },500);
+  
+  $('.bin').on('click',function(){     
+   $('.col1-name').empty();
+   $('.col2-price').empty();
+   $('.empty').show();
+   $('.checkout').removeClass('add-animation');
+   $('#bin').removeClass('add-animation2');
+   $('.checkout').addClass('disabled');
+   $('#bin').addClass('disabled');
+   bag = [];
+   $('.total-amount').add('.pay-last').text("$ " + bag.length);
+   cart.find('#count-item').text(0 + ' item').data('count', 0);
+ });
+  
+});
+
+
+
+
+//------------------BILL----------------------
+
+$(document).ready(function(){
+  $('#coupon').on('click',function(){
+    alert("minhquanghust.blogspot.com Coupon Code:" + '\n' + "25% off: 0511Q-1601CV" +'\n' + "15% off: 0511Q-1701NA" + '\n' + "10% off: 0511Q-1901QA")
+  });
+})
